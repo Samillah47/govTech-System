@@ -81,10 +81,38 @@ public class Main {
                             continue;
                     }
 
-                    service.processSevice();
+                    System.out.println("\n--- Service Requirements ---");
+                    System.out.println(service.requirement());
+                    System.out.println("----------------------------");
+
+                    System.out.print("Enter payment amount (" + service.getFee() + " Rwf): ");
+                    double payment;
+                    try {
+                        payment = Double.parseDouble(sc.nextLine().trim());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid payment amount.");
+                        break;
+                    }
+
                     ServiseApplication app = new ServiseApplication(currentCitizen, service);
-                    manager.addApplication(app);
-                    System.out.println("Application submitted successfully!");
+
+                    if (payment == service.getFee()) {
+                        service.processSevice();
+                        manager.addApplication(app);
+                        try {
+                            manager.ApprovaApplication(app.getApplicationId());
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                        System.out.println("Application submitted and approved!");
+                    } else if (payment > 0 && payment < service.getFee()) {
+                        service.processSevice();
+                        manager.addApplication(app);
+                        System.out.println("Partial payment received. Application is PENDING.");
+                    } else {
+                        System.out.println("Invalid payment. Application not submitted.");
+                        break;
+                    }
                     System.out.println("Your Application ID: " + app.getApplicationId());
                     break;
 
