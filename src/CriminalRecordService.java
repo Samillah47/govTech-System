@@ -11,4 +11,9 @@ public class CriminalRecordService extends GovermrntService {
         System.out.println("Processing " + getServiceName() + " for " + citizen.getName());
         System.out.println("Fee: " + getFee() + " Rwf");
     }
+
+    @Override
+    public String requirement() {
+        return "Valid National ID, Fee: 1,500 Rwf";
+    }
 }

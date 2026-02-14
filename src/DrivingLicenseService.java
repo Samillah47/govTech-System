@@ -11,4 +11,9 @@ public class DrivingLicenseService extends GovermrntService {
         System.out.println("Processing " + getServiceName() + " for " + citizen.getName());
         System.out.println("Fee: " + getFee() + " Rwf");
     }
+
+    @Override
+    public String requirement() {
+        return "Valid National ID, Age 18+, Medical certificate, Fee: 10,000 Rwf";
+    }
 }

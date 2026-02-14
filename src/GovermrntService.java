@@ -1,10 +1,12 @@
 public abstract class GovermrntService {
     protected String serviceName;
     protected double fee;
+    protected String status;
 
     public GovermrntService(String serviceName, double fee) {
         this.serviceName = serviceName;
         this.fee = fee;
+        this.status = "Pending";
     }
 
     public String getServiceName() {
@@ -15,6 +17,15 @@ public abstract class GovermrntService {
         return fee;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public abstract void processSevice();
-    
+
+    public abstract String requirement();
 }
