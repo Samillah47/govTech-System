@@ -33,6 +33,11 @@ public class Main {
                     System.out.print("Enter your 16-digit National ID: ");
                     String nationalId = sc.nextLine().trim();
                     try {
+                        if (citizenCollection.citizenExists(nationalId)) {
+                            System.out.println("A citizen with this National ID is already registered.");
+                            currentCitizen = citizenCollection.findByNationalId(nationalId);
+                            break;
+                        }
                         currentCitizen = new Citizen(name, nationalId);
                         citizenCollection.addCitizen(currentCitizen);
                         System.out.println("Registration successful!");
