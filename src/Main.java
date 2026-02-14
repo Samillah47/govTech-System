@@ -142,13 +142,7 @@ public class Main {
                     String searchId = sc.nextLine().trim();
                     try {
                         ServiseApplication foundApp = manager.findById(searchId);
-                        System.out.println("\n=====Application Details======");
-                        System.out.println("Application ID : " + foundApp.getApplicationId());
-                        System.out.println("Name : " + foundApp.getCitizen().getName());
-                        System.out.println("National ID : " + foundApp.getCitizen().getNationalID());
-                        System.out.println("Service : " + foundApp.getService().getServiceName());
-                        System.out.println("Status : " + foundApp.getStatus());
-                        System.out.println("==============================");
+                        foundApp.showProgress();
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
