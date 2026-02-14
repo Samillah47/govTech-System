@@ -46,7 +46,19 @@ public class ServiseApplication {
     }
 
     public void showProgress() {
-        service.processSevice();
+        System.out.println("\n--- Application Progress ---");
+        System.out.println("Application ID: " + applicationId);
+        System.out.println("Citizen: " + citizen.getName());
+        System.out.println("Service: " + service.getServiceName());
+        System.out.println("Fee: " + service.getFee() + " Rwf");
         System.out.println("Status: " + status);
+        System.out.println("Requirements: " + service.requirement());
+        System.out.println("----------------------------");
+    }
+
+    @Override
+    public String toString() {
+        return "Application{id='" + applicationId + "', citizen='" + citizen.getName() +
+                "', service='" + service.getServiceName() + "', status='" + status + "'}";
     }
 }
