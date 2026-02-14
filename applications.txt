@@ -1,1 +1,10 @@
-
+Application ID: f59b6916-0f88-4282-80e0-55ba4711cea5
+Citizen: samillah mutoni
+NationalID: 1200470083236181
+Service: Driving Licence
+Status: APPROVED
+Application ID: b5632764-04c9-4f65-a79d-45b47a624192
+Citizen: samillah mutoni
+NationalID: 1200470083236181
+Service: Passport Request
+Status: APPROVED

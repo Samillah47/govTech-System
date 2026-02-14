@@ -1,0 +1,7 @@
+Revenue Report
+--------------
+Total Revenues: 40000.0 Rwf
+Divorce Revenues: 0.0 Rwf
+Passport Request Revenues: 30000.0 Rwf
+Driving Licence Revenues: 10000.0 Rwf
+Criminal Record Revenues: 0.0 Rwf

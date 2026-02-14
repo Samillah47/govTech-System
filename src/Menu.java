@@ -10,8 +10,7 @@ public class Menu {
         System.out.println("4. View Reports");
         System.out.println("5. Search Application");
         System.out.println("6. View All Applications");
-        System.out.println("7. Change Application Status");
-        System.out.println("8. Exit");
+        System.out.println("7. Exit");
         System.out.println("========================================");
         System.out.print("Enter your choice: ");
     }
@@ -24,12 +23,5 @@ public class Menu {
         System.out.println("4. Divorce Certificate");
         System.out.println("5. Passport Request");
         System.out.print("Choose a service: ");
-    }
-
-    public static void statusMenu() {
-        System.out.println("\n--- Change Status ---");
-        System.out.println("1. Approve");
-        System.out.println("2. Reject");
-        System.out.print("Choose action: ");
     }
 }
