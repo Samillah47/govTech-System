@@ -18,7 +18,7 @@ public class ApplicationManager {
         saveToFile();
     }
 
-    public void ApprovaApplication(int id) throws ApplicationNotFound, InvalidStatus {
+    public void ApprovaApplication(String id) throws ApplicationNotFound, InvalidStatus {
         ServiseApplication app = findById(id);
 
         if (app.getStatus().equals("APPROVED")) {
@@ -32,7 +32,7 @@ public class ApplicationManager {
         }
     }
 
-    public void RejectApplication(int id) throws ApplicationNotFound, InvalidStatus {
+    public void RejectApplication(String id) throws ApplicationNotFound, InvalidStatus {
         ServiseApplication app = findById(id);
 
         if (app.getStatus().equals("APPROVED")) {
@@ -46,7 +46,7 @@ public class ApplicationManager {
         }
     }
 
-    public void changeApplicationStatus(int id, String newStatus) throws ApplicationNotFound, InvalidStatus {
+    public void changeApplicationStatus(String id, String newStatus) throws ApplicationNotFound, InvalidStatus {
         ServiseApplication app = findById(id);
 
         if (!newStatus.equals("APPROVED") && !newStatus.equals("REJECTED") && !newStatus.equals("Pending")) {
@@ -58,9 +58,9 @@ public class ApplicationManager {
         System.out.println("Application status changed to " + newStatus);
     }
 
-    public ServiseApplication findById(int id) throws ApplicationNotFound {
+    public ServiseApplication findById(String id) throws ApplicationNotFound {
         for (ServiseApplication app : applications) {
-            if (app.getApplicaionId() == id) {
+            if (app.getApplicationId().equals(id)) {
                 return app;
             }
         }
@@ -74,7 +74,7 @@ public class ApplicationManager {
         }
         for (ServiseApplication app : applications) {
             System.out.println("\n=====Details======");
-            System.out.println("Application ID : " + app.getApplicaionId() +
+            System.out.println("Application ID : " + app.getApplicationId() +
                     "\nNationalId : " + app.getCitizen().getNationalID() +
                     "\nName : " + app.getCitizen().getName() +
                     "\nService : " + app.getService().getServiceName() +
@@ -86,7 +86,7 @@ public class ApplicationManager {
     public void saveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             for (ServiseApplication app : applications) {
-                writer.write("Application ID: " + app.getApplicaionId());
+                writer.write("Application ID: " + app.getApplicationId());
                 writer.newLine();
                 writer.write("Citizen: " + app.getCitizen().getName());
                 writer.newLine();
@@ -105,7 +105,6 @@ public class ApplicationManager {
     public void loadFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
-            int maxId = 0;
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Application ID:")) {
                     String appIdLine = line;
@@ -115,15 +114,11 @@ public class ApplicationManager {
                     String statusLine = reader.readLine();
 
                     if (citizenLine != null && nationalIdLine != null && serviceLine != null && statusLine != null) {
-                        int appId = Integer.parseInt(appIdLine.split(": ")[1].trim());
+                        String appId = appIdLine.split(": ")[1].trim();
                         String name = citizenLine.split(": ")[1].trim();
                         String nationalId = nationalIdLine.split(": ")[1].trim();
                         String serviceName = serviceLine.split(": ")[1].trim();
                         String status = statusLine.split(": ")[1].trim();
-
-                        if (appId > maxId) {
-                            maxId = appId;
-                        }
 
                         Citizen citizen;
                         try {
@@ -155,7 +150,6 @@ public class ApplicationManager {
                     }
                 }
             }
-            ServiseApplication.setApplicationCounter(maxId + 1);
         } catch (Exception e) {
             System.out.println("No previous records found.");
         }

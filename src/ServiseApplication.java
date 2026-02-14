@@ -1,31 +1,32 @@
+import java.util.UUID;
+
 public class ServiseApplication {
 
-    private static int applicationCounter = 1;
-    private int applicaionId;
+    private String applicationId;
     private Citizen citizen;
-    private GovermrntService service;   
+    private GovermrntService service;
     private String status;
 
     public ServiseApplication(Citizen citizen, GovermrntService service) {
-        this.applicaionId = applicationCounter++;
+        this.applicationId = UUID.randomUUID().toString();
         this.citizen = citizen;
         this.service = service;
         this.status = "Pending";
     }
-    
-    public ServiseApplication(int id, Citizen citizen, GovermrntService service, String status) {
-        this.applicaionId = id;
+
+    public ServiseApplication(String id, Citizen citizen, GovermrntService service, String status) {
+        this.applicationId = id;
         this.citizen = citizen;
         this.service = service;
         this.status = status;
     }
 
-    public int getApplicaionId() {
-        return applicaionId;
+    public String getApplicationId() {
+        return applicationId;
     }
-    
-    public void setApplicaionId(int id) {
-        this.applicaionId = id;
+
+    public void setApplicationId(String id) {
+        this.applicationId = id;
     }
 
     public Citizen getCitizen() {
@@ -39,20 +40,13 @@ public class ServiseApplication {
     public String getStatus() {
         return status;
     }
-    public void setStatus(String status) { 
-        this.status = status; 
-    }
-    
-    public static void setApplicationCounter(int counter) {
-        applicationCounter = counter;
-    }  
 
-    public String toFileString() {
-        return 
-        "Application ID: " + applicaionId + 
-        " \nCitizen: " + citizen.getName() + 
-        " \nService: " + service.getServiceName() + 
-        " \nStatus: " + status;
+    public void setStatus(String status) {
+        this.status = status;
     }
-    
+
+    public void showProgress() {
+        service.processSevice();
+        System.out.println("Status: " + status);
+    }
 }
