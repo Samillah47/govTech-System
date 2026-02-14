@@ -154,6 +154,30 @@ public class Main {
                     break;
 
                 case 7:
+                    System.out.print("Enter Application ID to change status: ");
+                    String statusAppId = sc.nextLine().trim();
+                    Menu.statusMenu();
+                    int statusChoice;
+                    try {
+                        statusChoice = Integer.parseInt(sc.nextLine().trim());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input.");
+                        break;
+                    }
+                    try {
+                        if (statusChoice == 1) {
+                            manager.ApprovaApplication(statusAppId);
+                        } else if (statusChoice == 2) {
+                            manager.RejectApplication(statusAppId);
+                        } else {
+                            System.out.println("Invalid choice.");
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 8:
                     System.out.println("Thank you for using the Digital Government Service Management System. Goodbye!");
                     running = false;
                     break;
