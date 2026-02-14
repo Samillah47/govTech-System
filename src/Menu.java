@@ -18,10 +18,11 @@ public class Menu {
 
     public static void serviceMenu() {
         System.out.println("\n--- Available Services ---");
-        System.out.println("1. Driving Licence");
-        System.out.println("2. Criminal Record");
-        System.out.println("3. Divorce Certificate");
-        System.out.println("4. Passport Request");
+        System.out.println("1. Birth Certificate");
+        System.out.println("2. Driving Licence");
+        System.out.println("3. Criminal Record");
+        System.out.println("4. Divorce Certificate");
+        System.out.println("5. Passport Request");
         System.out.print("Choose a service: ");
     }
 

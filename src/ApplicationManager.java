@@ -135,6 +135,9 @@ public class ApplicationManager {
                             case "Divorce Service":
                                 service = new DivorceService(citizen);
                                 break;
+                            case "Birth Certificate":
+                                service = new BirthCertificateService(citizen);
+                                break;
                             case "Driving Licence":
                                 service = new DrivingLicenseService(citizen);
                                 break;

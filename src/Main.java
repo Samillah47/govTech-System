@@ -70,15 +70,18 @@ public class Main {
                     GovermrntService service;
                     switch (serviceChoice) {
                         case 1:
-                            service = new DrivingLicenseService(currentCitizen);
+                            service = new BirthCertificateService(currentCitizen);
                             break;
                         case 2:
-                            service = new CriminalRecordService(currentCitizen);
+                            service = new DrivingLicenseService(currentCitizen);
                             break;
                         case 3:
-                            service = new DivorceService(currentCitizen);
+                            service = new CriminalRecordService(currentCitizen);
                             break;
                         case 4:
+                            service = new DivorceService(currentCitizen);
+                            break;
+                        case 5:
                             service = new PassportRequest(currentCitizen);
                             break;
                         default:
