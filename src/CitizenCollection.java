@@ -19,4 +19,16 @@ public class CitizenCollection {
     public int size() {
         return citizens.size();
     }
+
+    public void displayAllCitizens() {
+        if (citizens.isEmpty()) {
+            System.out.println("No registered citizens.");
+            return;
+        }
+        System.out.println("\n--- Registered Citizens ---");
+        for (Citizen citizen : citizens.values()) {
+            System.out.println(citizen);
+        }
+        System.out.println("---------------------------");
+    }
 }
