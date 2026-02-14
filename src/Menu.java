@@ -23,4 +23,11 @@ public class Menu {
         System.out.println("4. Passport Request");
         System.out.print("Choose a service: ");
     }
+
+    public static void statusMenu() {
+        System.out.println("\n--- Change Status ---");
+        System.out.println("1. Approve");
+        System.out.println("2. Reject");
+        System.out.print("Choose action: ");
+    }
 }
