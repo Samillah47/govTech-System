@@ -4,48 +4,136 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ApplicationManager manager = new ApplicationManager();
+        CitizenCollection citizenCollection = new CitizenCollection();
+        Citizen currentCitizen = null;
 
         manager.loadFromFile();
 
-        try {
-            System.out.println("Enter Citizen's National ID: ");
-            String citizenId = sc.nextLine();
+        System.out.println("Welcome to the Digital Government Service Management System");
 
-            System.out.println("Enter Citize's name: ");
-            String citizenName = sc.nextLine();
-
-            Citizen citizen = new Citizen(citizenName, citizenId);
-
-            System.out.println("Choose Service");
-            System.out.println("1. Divorce Certificate");
-            System.out.println("2. Passpport Request");
-
-            int choice = sc.nextInt();
-
-        
-            GovermrntService service;
-
-            if (choice == 1){
-                service = new DivorceService(citizen);
-            }else{
-                service= new PassportRequest(citizen);
+        boolean running = true;
+        while (running) {
+            Menu.welcomeMenu();
+            int choice;
+            try {
+                choice = Integer.parseInt(sc.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
             }
 
-            ServiseApplication app = new ServiseApplication(citizen, service);
-            manager.addApplication(app);
-            System.out.println("Application Submitted Successfully");
-            System.out.println("Application ID: "+ app.getApplicaionId());
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter your full name: ");
+                    String name = sc.nextLine().trim();
+                    if (name.isEmpty()) {
+                        System.out.println("Name cannot be empty.");
+                        break;
+                    }
+                    System.out.print("Enter your 16-digit National ID: ");
+                    String nationalId = sc.nextLine().trim();
+                    try {
+                        currentCitizen = new Citizen(name, nationalId);
+                        citizenCollection.addCitizen(currentCitizen);
+                        System.out.println("Registration successful!");
+                        System.out.println(currentCitizen);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    break;
 
-            manager.ApprovaApplication(app.getApplicaionId());
-            manager.displayAll();
+                case 2:
+                    if (currentCitizen == null) {
+                        System.out.print("Enter your 16-digit National ID: ");
+                        String id = sc.nextLine().trim();
+                        currentCitizen = citizenCollection.findByNationalId(id);
+                        if (currentCitizen == null) {
+                            System.out.println("Citizen not found. Please register first.");
+                            break;
+                        }
+                    }
 
-            manager.report();
+                    Menu.serviceMenu();
+                    int serviceChoice;
+                    try {
+                        serviceChoice = Integer.parseInt(sc.nextLine().trim());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input.");
+                        break;
+                    }
 
+                    GovermrntService service;
+                    switch (serviceChoice) {
+                        case 1:
+                            service = new DrivingLicenseService(currentCitizen);
+                            break;
+                        case 2:
+                            service = new CriminalRecordService(currentCitizen);
+                            break;
+                        case 3:
+                            service = new DivorceService(currentCitizen);
+                            break;
+                        case 4:
+                            service = new PassportRequest(currentCitizen);
+                            break;
+                        default:
+                            System.out.println("Invalid service choice.");
+                            continue;
+                    }
 
-        } catch (Exception e) {
-            System.out.println("Error: "+ e.getMessage());
+                    service.processSevice();
+                    ServiseApplication app = new ServiseApplication(currentCitizen, service);
+                    manager.addApplication(app);
+                    System.out.println("Application submitted successfully!");
+                    System.out.println("Your Application ID: " + app.getApplicationId());
+                    break;
+
+                case 3:
+                    System.out.print("Enter your 16-digit National ID: ");
+                    String profileId = sc.nextLine().trim();
+                    Citizen found = citizenCollection.findByNationalId(profileId);
+                    if (found != null) {
+                        System.out.println("\n--- Citizen Profile ---");
+                        System.out.println(found);
+                    } else {
+                        System.out.println("Citizen not found. Please register first.");
+                    }
+                    break;
+
+                case 4:
+                    manager.report();
+                    break;
+
+                case 5:
+                    System.out.print("Enter Application ID: ");
+                    String searchId = sc.nextLine().trim();
+                    try {
+                        ServiseApplication foundApp = manager.findById(searchId);
+                        System.out.println("\n=====Application Details======");
+                        System.out.println("Application ID : " + foundApp.getApplicationId());
+                        System.out.println("Name : " + foundApp.getCitizen().getName());
+                        System.out.println("National ID : " + foundApp.getCitizen().getNationalID());
+                        System.out.println("Service : " + foundApp.getService().getServiceName());
+                        System.out.println("Status : " + foundApp.getStatus());
+                        System.out.println("==============================");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 6:
+                    manager.displayAll();
+                    break;
+
+                case 7:
+                    System.out.println("Thank you for using the Digital Government Service Management System. Goodbye!");
+                    running = false;
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
         }
         sc.close();
     }
-    
 }
