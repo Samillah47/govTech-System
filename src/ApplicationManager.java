@@ -193,6 +193,18 @@ public class ApplicationManager {
         } catch (IOException e) {
             System.out.println("Error generating report.");
         }
-        System.out.println("Revenue report generated successfully.");
+        System.out.println("\n--- Revenue Report ---");
+        System.out.println("Total Applications: " + applications.size());
+        System.out.println("Total Revenues: " + total + " Rwf");
+        System.out.println("Divorce Revenues: " + divorceRevenues + " Rwf");
+        System.out.println("Passport Request Revenues: " + passportRequestRevenue + " Rwf");
+        System.out.println("Driving Licence Revenues: " + drivingLicenceRevenue + " Rwf");
+        System.out.println("Criminal Record Revenues: " + criminalRecordRevenue + " Rwf");
+        System.out.println("----------------------");
+        System.out.println("Revenue report saved to revenue_report.txt");
+    }
+
+    public int getApplicationCount() {
+        return applications.size();
     }
 }
